@@ -10,6 +10,9 @@
   "license": "ISC",
   "dependencies": {
     "gulp": "^3.9.0",
+    "gulp-build": "^0.5.3",
+    "gulp-clean": "^0.3.1",
+    "gulp-minify-html": "^1.0.4",
     "gulp-minify-inline": "^0.1.1",
     "gulp-size": "^2.0.0"
   },
