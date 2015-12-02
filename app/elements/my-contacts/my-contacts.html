@@ -10,7 +10,6 @@
             background: var(--primary-background-color);
             display: block;
             width: 450px;
-            border: 1px solid #ccc;
             border-bottom: none;
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
             box-sizing: border-box;
@@ -22,29 +21,47 @@
         }
         h1 {
             font-family: sans-serif;
-            color: var(--secondary-text-color);
+            color: #fff;
             font-weight: normal;
             margin: 0;
             text-align: center;
             padding: 10px;
-            background: #fff;
+            background: var(--paper-blue-500);
+            font-size: 20px;
+            font-weight: 300;
         }
         .search-bar {
             padding: 10px;
             width: 100%;
             box-sizing: border-box;
             font-size: 14px;
-            background-color: #ccc;
+            background-color: #fff;
             border: none;
-            color: #666;
+            color: #333;
+            outline: none;
+            border-top: 1px solid #ccc;
+            border-bottom: 1px solid #ccc;
+        }
+        .sortable {
+            background: #fff;
+            width: 100%;
+            padding: 5px 10px;
+            font-size: 14px;
+            line-height: 1;
+            border: 0;
+            border-radius: 0;
+            height: 34px;
+            -webkit-appearance: none;
             outline: none;
         }
     </style>
     <template>
         <h1>Liste de contacts</h1>
         <input class="search-bar" value="{{filterVal::input}}" placeholder="Recherche par Nom">
+
         <iron-ajax url="{{src}}" handle-as="json" last-response="{{contacts}}" auto></iron-ajax>
-        <template is="dom-repeat" items="{{contacts.results}}" filter="{{_filter(filterVal)}}" as="contact">
+
+        <template is="dom-repeat" items="{{contacts.results}}" sort="{{_sort(sortVal)}}" filter="{{_filter(filterVal)}}" as="contact">
             <my-contact
                 gender="{{contact.user.gender}}"
                 title="{{contact.user.name.title}}"
@@ -55,6 +72,13 @@
                 mail="{{contact.user.email}}"
             ></my-contact>
         </template>
+
+        <select class="sortable" value="{{sortVal::change}}">
+            <option value="">Trier par ...</option>
+            <option value="firstname">Trier par : Prénom</option>
+            <option value="name">Trier par : Nom</option>
+            <option value="gender">Trier par : Genre</option>
+        </select>
     </template>
 
     <!-- Registers custom element -->
@@ -84,6 +108,25 @@
                 if (!contact) return false;
                 return (contact.user.name.last.toLowerCase() && ~contact.user.name.last.toLowerCase().indexOf(val));
             };
+        },
+        _sort: function(val) {
+            switch(val) {
+                case 'firstname':
+                    return function(a, b) {
+                        if (a.user.name.first === b.user.name.first) return 0;
+                        return a.user.name.first < b.user.name.first ? -1 : 1;
+                    };
+                case 'name':
+                    return function(a, b) {
+                        if (a.user.name.last === b.user.name.last) return 0;
+                        return a.user.name.last < b.user.name.last ? -1 : 1;
+                    };
+                case 'gender':
+                    return function(a, b) {
+                        if (a.user.gender === b.user.gender) return 0;
+                        return a.user.gender < b.user.gender ? -1 : 1;
+                    };
+            }
         }
     });
     </script>
