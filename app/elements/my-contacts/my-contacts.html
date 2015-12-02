@@ -1,0 +1,57 @@
+<!-- Imports polymer -->
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<!-- Defines element markup -->
+<dom-module id="my-contacts">
+    <style>
+        :host {
+            padding: 0px;
+            margin: 0;
+            background: var(--primary-background-color);
+            display: block;
+        }
+        h1 {
+            font-family: sans-serif;
+            color: var(--secondary-text-color);
+            font-weight: normal;
+            margin: 0;
+        }
+    </style>
+    <template>
+        <h1>Liste de contacts</h1>
+        <iron-ajax url="{{src}}" handle-as="json" last-response="{{contacts}}" auto></iron-ajax>
+        <template is="dom-repeat" items="{{contacts.results}}" as="contact">
+            <my-contact
+                gender="{{contact.user.gender}}"
+                title="{{contact.user.name.title}}"
+                name="{{contact.user.name.last}}"
+                firstname="{{contact.user.name.first}}"
+                avatar="{{contact.user.picture.thumbnail}}"
+                phone="{{contact.user.phone}}"
+                mail="{{contact.user.email}}"
+            ></my-contact>
+        </template>
+    </template>
+
+    <!-- Registers custom element -->
+    <script>
+    Polymer({
+        is: 'my-contacts',
+        properties: {
+            data: {
+                type: Object
+            }
+        },
+        // Fires when an instance of the element is created
+        created: function() {},
+        // Fires when the local DOM has been fully prepared
+        ready: function() {},
+        // Fires when the element was inserted into the document
+        attached: function() {},
+        // Fires when the element was removed from the document
+        detached: function() {},
+        // Fires when an attribute was added, removed, or updated
+        attributeChanged: function(name, type) {}
+    });
+    </script>
+</dom-module>

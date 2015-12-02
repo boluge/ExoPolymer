@@ -1,0 +1,96 @@
+<!-- Imports polymer -->
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link href='https://fonts.googleapis.com/css?family=Roboto:400,500,300' rel='stylesheet' type='text/css'>
+
+<!-- Defines element markup -->
+<dom-module id="my-contact">
+    <style>
+        :root {
+            --iron-icon-height: 14px;
+            --iron-icon-width: 14px;
+        }
+        :host {
+            padding: 8px 10px;
+            min-height: 54px;
+            margin: 0;
+            display: block;
+            clear: both;
+            border-bottom: 1px solid #ccc;
+            font-family: 'Roboto', sans-serif;
+            transition: background 0.25s ease-in-out;
+        }
+        :host:hover {
+            background: rgba(255,255,255,0.4);
+        }
+        .male.avatar, .female.avatar {
+            height: 50px;
+            width: auto;
+            float: left;
+            border-radius: 50%;
+            margin-right: 15px;
+            border: 3px solid var(--paper-pink-300);
+        }
+        .male.avatar {
+            border-color: var(--paper-light-blue-300);
+        }
+
+        .username.male, .username.female {
+            font-size: 16px;
+            font-weight: 400;
+            margin: 8px 0 0 0;
+            color: var(--paper-pink-500);
+        }
+        .username.male {
+            color: var(--paper-light-blue-500);
+        }
+        .title,.fisrtname {
+            text-transform: capitalize;
+        }
+        .name {
+            text-transform: uppercase;
+        }
+        .infos {
+            margin: 3px 0 0 0;
+            font-size: 14px;
+            font-weight: 300;
+            color: #000;
+        }
+        .infos .mail {
+            margin-left: 10px;
+        }
+        .grey {
+            margin-right: 5px;
+
+        }
+    </style>
+    <template>
+        <img class$="avatar {{gender}}" src="{{avatar}}">
+        <p class$="username {{gender}}">
+            <span class="title">{{title}}</span>
+            <span Class="fisrtname">{{firstname}}</span>
+            <span class="name">{{name}}</span>
+        </p>
+        <p class="infos">
+            <iron-icon class="grey" icon="maps:local-phone"> <span class="phone"></iron-icon>{{phone}}</span>
+            <span class="mail"><iron-icon class="grey" icon="maps:local-post-office"></iron-icon>{{mail}}</span>
+        </p>
+    </template>
+
+    <!-- Registers custom element -->
+    <script>
+    Polymer({
+        is: 'my-contact',
+
+        // Fires when an instance of the element is created
+        created: function() {},
+        // Fires when the local DOM has been fully prepared
+        ready: function() {},
+        // Fires when the element was inserted into the document
+        attached: function() {},
+        // Fires when the element was removed from the document
+        detached: function() {},
+        // Fires when an attribute was added, removed, or updated
+        attributeChanged: function(name, type) {}
+    });
+    </script>
+</dom-module>
