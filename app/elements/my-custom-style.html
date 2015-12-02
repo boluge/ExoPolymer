@@ -13,16 +13,21 @@
         --disabled-text-color: #bdbdbd;
         --divider-color: #B6B6B6;
     }
-
+    html {
+      height: 100%;
+    }
     body {
         margin: 0;
         padding: 0;
-        background: var(--primary-background-color);
-        height: 100%;
+        background: var(--paper-grey-400);
+        min-height: 100%;
     }
 
     google-map {
-        width: 100%;
-        height: 400px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
     }
 </style>

@@ -6,21 +6,45 @@
     <style>
         :host {
             padding: 0px;
-            margin: 0;
+            margin: 15px auto;
             background: var(--primary-background-color);
             display: block;
+            width: 450px;
+            border: 1px solid #ccc;
+            border-bottom: none;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            box-sizing: border-box;
+            overflow: hidden;
+            border-radius: 6px;
+            position: absolute;
+            top: 100px;
+            left: 50px;
         }
         h1 {
             font-family: sans-serif;
             color: var(--secondary-text-color);
             font-weight: normal;
             margin: 0;
+            text-align: center;
+            padding: 10px;
+            background: #fff;
+        }
+        .search-bar {
+            padding: 10px;
+            width: 100%;
+            box-sizing: border-box;
+            font-size: 14px;
+            background-color: #ccc;
+            border: none;
+            color: #666;
+            outline: none;
         }
     </style>
     <template>
         <h1>Liste de contacts</h1>
+        <input class="search-bar" value="{{filterVal::input}}" placeholder="Recherche par Nom">
         <iron-ajax url="{{src}}" handle-as="json" last-response="{{contacts}}" auto></iron-ajax>
-        <template is="dom-repeat" items="{{contacts.results}}" as="contact">
+        <template is="dom-repeat" items="{{contacts.results}}" filter="{{_filter(filterVal)}}" as="contact">
             <my-contact
                 gender="{{contact.user.gender}}"
                 title="{{contact.user.name.title}}"
@@ -51,7 +75,16 @@
         // Fires when the element was removed from the document
         detached: function() {},
         // Fires when an attribute was added, removed, or updated
-        attributeChanged: function(name, type) {}
+        attributeChanged: function(name, type) {},
+        // Fonction de recherche
+        _filter: function(val) {
+            var val = val.toLowerCase();
+            return function(contact) {
+                if (!val) return true;
+                if (!contact) return false;
+                return (contact.user.name.last.toLowerCase() && ~contact.user.name.last.toLowerCase().indexOf(val));
+            };
+        }
     });
     </script>
 </dom-module>
