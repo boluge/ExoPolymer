@@ -18,9 +18,17 @@
             border-bottom: 1px solid #ccc;
             font-family: 'Roboto', sans-serif;
             transition: background 0.25s ease-in-out;
+            overflow: hidden;
+            position: relative;
         }
         :host:hover {
             background: rgba(255,255,255,0.4);
+        }
+        paper-ripple.male {
+            color: var(--paper-light-blue-300);
+        }
+        paper-ripple.female {
+            color: var(--paper-pink-300);
         }
         .male.avatar, .female.avatar {
             height: 50px;
@@ -74,6 +82,7 @@
             <iron-icon class="grey" icon="maps:local-phone"> <span class="phone"></iron-icon>{{phone}}</span>
             <span class="mail"><iron-icon class="grey" icon="maps:local-post-office"></iron-icon>{{mail}}</span>
         </p>
+        <paper-ripple class$="{{gender}}"></paper-ripple>
     </template>
 
     <!-- Registers custom element -->
